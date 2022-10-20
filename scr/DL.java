@@ -27,7 +27,7 @@ public class DL {
         for (int i = 0; i < Cuenta.size(); i++) {
             if (Cuenta.get(i).getIdentificacion() == identificacion) {
                 if (Cuenta.get(i).getSaldo() < 1) {
-                    System.out.println("Cuenta no tiene fondos");
+                    System.out.println(Cuenta.get(i).getCodigo()+": Cuenta no tiene fondos ");
                     break;
                 }
                 Cuenta t = Cuenta.get(i);
@@ -38,11 +38,20 @@ public class DL {
     }
 
 
-    public boolean validarCliente(int identificacion) {
-        boolean validacion = false;
+    public int validarCliente(int identificacion) {
+        int validacion = 1;
+        for (int i = 0; i < Cliente.size(); i++) {
+            if (Cliente.get(i).getIdentificacion() == identificacion) {
+                validacion = 0;
+            }
+        }
+        return validacion;
+    }
+    public int validarCodigo(int codigo) {
+        int validacion = 1;
         for (int i = 0; i < Cuenta.size(); i++) {
-            if (Cuenta.get(i).getIdentificacion() == identificacion ) {
-                validacion = true;
+            if (Cuenta.get(i).getCodigo() == codigo) {
+                validacion = 0;
             }
         }
         return validacion;
@@ -51,6 +60,7 @@ public class DL {
     public void almacenarCliente(Cliente c) {
         Cliente.add(c);
     }
+
     public void almacenarCuenta(Cuenta p) {
         Cuenta.add(p);
     }

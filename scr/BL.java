@@ -29,7 +29,6 @@ public class BL {
     }
 
     public void retiroCuenta(int identificacion, int saldo) {
-
         for (int i = 0; i < listarCuenta().size(); i++) {
             if (listarCuenta().get(i).getIdentificacion() == identificacion) {
                 int saldoActual = listarCuenta().get(i).getSaldo();
@@ -38,8 +37,12 @@ public class BL {
         }
     }
 
-    public boolean validacionPersona(int identificacion) {
+    public int validacionPersona(int identificacion) {
         return data.validarCliente(identificacion);
+    }
+
+    public int validacionCodigo(int identificacion) {
+        return data.validarCodigo(identificacion);
     }
 
 
@@ -55,26 +58,44 @@ public class BL {
         return data.getTarjetasCliente(identificacion);
     }
 
-    public String modificarSaldo(int saldo) {
-
-        if (saldo != 50000) {
-            System.out.println("error");
-            System.exit(1);
-        } else if (saldo == 50000) {
-            System.out.println("Ta bien");
+    public int modificarSaldo(int saldo) {
+        int validacion = 0;
+        if (saldo >= 50000) {
+            validacion = 1;
         }
-        return null;
-
+        return validacion;
     }
 
-    public void modificarCodigo(int codigo) {
-
-        if (codigo == 7) {
-            System.out.println("ta bien2222");
-        } else {
-            System.out.println("error2222");
-            System.exit(1);
+    public int modificarCodigo(int codigo) {
+        int validacion = 0;
+        if (codigo > 999999 && codigo <= 9999999) {
+            validacion = 1;
         }
-
+        return validacion;
     }
+
+    public int verificarDeposito(int saldo) {
+        int validacion = 0;
+        if (saldo > 0) {
+            validacion = 1;
+        }
+        return validacion;
+    }
+
+    public int verificarRetiro(int saldo) {
+        int validacion = 0;
+        for (int i = 0; i < listarCuenta().size(); i++) {
+            if (listarCuenta().get(i).getSaldo() < saldo) {
+                validacion = 1;
+                break;
+            }
+            if (saldo <= 0) {
+                validacion = 2;
+                break;
+            }
+        }
+        return validacion;
+    }
+
+
 }
