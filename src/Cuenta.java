@@ -1,6 +1,6 @@
 public class Cuenta {
 
-    private String identificacion;
+    private int identificacion;
 
     private int codigo;
 
@@ -10,17 +10,17 @@ public class Cuenta {
 
     }
 
-    public Cuenta(String identificacion, int codigo, int saldo) {
+    public Cuenta(int identificacion, int codigo, int saldo) {
         this.identificacion = identificacion;
         this.codigo = codigo;
         this.saldo = saldo;
     }
 
-    public String getIdentificacion() {
+    public int getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(int identificacion) {
         this.identificacion = identificacion;
     }
 
@@ -48,5 +48,4 @@ public class Cuenta {
                 ", saldo=" + saldo +
                 '}';
     }
-
 }

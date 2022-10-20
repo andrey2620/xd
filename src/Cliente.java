@@ -4,7 +4,7 @@ import java.time.Period;
 public class Cliente {
 
     private String nombre;
-    private String identificacion;
+    private int identificacion;
     private LocalDate FechaNacimiento;
     private int edad;
     private String direccion;
@@ -13,7 +13,7 @@ public class Cliente {
 
     }
 
-    public Cliente(String nombre, String identificacion, LocalDate fechaNacimiento, String direccion) {
+    public Cliente(String nombre, int identificacion, LocalDate fechaNacimiento, String direccion) {
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.FechaNacimiento = fechaNacimiento;
@@ -30,11 +30,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getIdentificacion() {
+    public int getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(int identificacion) {
         this.identificacion = identificacion;
     }
 

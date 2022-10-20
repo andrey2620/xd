@@ -2,8 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.time.LocalDate;
-import java.time.Period;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -17,24 +16,24 @@ public class Main {
 
         int opcion = -1;
 
-        do{
+        do {
             mostrarMenu();
             opcion = seleccionarOpcion();
             procesarOpcion(opcion);
-        } while(opcion != 0);
+        } while (opcion != 0);
 
     }
 
-    public static void ingresarCliente() throws IOException{
+    public static void ingresarCliente() throws IOException {
 
-        int dia, mes , anno;
+        int dia, mes, anno, identificacion;
 
-        String nombre, identificacion, dirrecion;
+        String nombre, dirrecion;
 
         out.println("\nDigite el nombre del cliente: ");
         nombre = in.readLine();
         out.println("Digite la identificacion del cliente: ");
-        identificacion = in.readLine();
+        identificacion = Integer.parseInt(in.readLine());
         out.println("Digite la dirrecion del cliente: ");
         dirrecion = in.readLine();
         out.println("Digite el dia del nacimiento del cliente: ");
@@ -43,25 +42,24 @@ public class Main {
         mes = Integer.parseInt(in.readLine());
         out.println("Digite el a;o del nacimiento del cliente: ");
         anno = Integer.parseInt(in.readLine());
-        logica.ingresarCliente(nombre, identificacion, anno, mes ,dia ,dirrecion);
+        if (!(logica.validacionPersona(identificacion))) {
+            logica.ingresarCliente(nombre, identificacion, anno, mes, dia, dirrecion);
 
+        }
+        if (logica.validacionPersona(identificacion)) {
+            System.out.println("ya existe ese usuario");
+        }
     }
 
     public static void crearCuenta() throws IOException {
-
-        String identificacion;
-
-        int codigo, saldo;
-
+        int codigo, saldo, identificacion;
         out.println("\nDigite la identificacion del cliente: ");
-        identificacion = in.readLine();
+        identificacion = Integer.parseInt(in.readLine());
         out.println("Digite los 7 numeros de la cuenta: ");
         codigo = Integer.parseInt(in.readLine());
         out.println("Deposito de 50 mil colones obligatorio: ");
         saldo = Integer.parseInt(in.readLine());
-
         logica.crearCuenta(identificacion, codigo, saldo);
-
     }
 
     static int seleccionarOpcion() throws IOException {
@@ -71,8 +69,7 @@ public class Main {
 
     }
 
-    static void mostrarMenu(){
-
+    static void mostrarMenu() {
         out.println("\nMENÚ PRINCIPAL");
         out.println("1.Registrar clientes.");
         out.println("2.Listar clientes.");
@@ -82,13 +79,10 @@ public class Main {
         out.println("6.Realizar retiro.");
         out.println("7.Mostrar saldo de cuenta.");
         out.println("0.Salir del programa");
-
     }
 
     public static void procesarOpcion(int pOpcion) throws IOException {
-
         switch (pOpcion) {
-
             case 1:
                 ingresarCliente();
                 break;
@@ -117,8 +111,8 @@ public class Main {
                 out.println("\nOpcion invalida");
                 break;
         }
-
     }
+
 
     public static void listarCliente() {
 
@@ -129,15 +123,14 @@ public class Main {
         }
 
         Cliente = null;
-
     }
 
-    public static void listarCuenta() throws IOException {
+    public static void listarCuenta() {
 
-        ArrayList<String> Cuenta = logica.listarCuenta();
+        ArrayList<Cuenta> Cuenta = logica.listarCuenta();
 
-        for(int i=0;i<Cuenta.size();i++) {
-            out.println(Cuenta.get(i).toString());
+        for (int i = 0; i < Cuenta.size(); i++) {
+            out.println(Cuenta.get(i));
         }
 
         Cuenta = null;
@@ -146,12 +139,12 @@ public class Main {
 
     public static void realizarDeposito() throws IOException {
 
-        String identificacion;
+        int identificacion;
 
         int saldo;
 
         out.println("\nDigite la identificacion del cliente: ");
-        identificacion = in.readLine();
+        identificacion = Integer.parseInt(in.readLine());
         System.out.println("Digite el deposito que desea realizar: ");
         saldo = Integer.parseInt(in.readLine());
 
@@ -160,13 +153,10 @@ public class Main {
     }
 
     public static void realizarRetiro() throws IOException {
-
-        String identificacion;
-
-        int saldo;
+        int saldo, identificacion;
 
         out.println("\nDigite la identificacion del cliente: ");
-        identificacion = in.readLine();
+        identificacion = Integer.parseInt(in.readLine());
         System.out.println("Digite el retiro que desea realizar: ");
         saldo = Integer.parseInt(in.readLine());
 
@@ -175,21 +165,16 @@ public class Main {
 
     public static void mostrarSaldo() throws IOException {
 
-        String identificacion;
+        int identificacion;
+        out.println("\nDigite la identificacion del cliente para mostrar la cuenta: ");
+        identificacion = Integer.parseInt(in.readLine());
 
-        ArrayList<Cuenta> Cuenta = logica.listarCuenta();
+        ArrayList<String> Cuenta = logica.listarCuentaCliente(identificacion);
 
-        out.println("\nDigite la identificacion del cliente para mostar la cuenta: ");
-        identificacion = in.readLine();
 
-        for (int i = 0; i < Cuenta.size(); i++){
-            if (identificacion == Cuenta.get(i).getIdentificacion()){
-                out.println(Cuenta.get(i).toString());
-            }
+        for (int i = 0; i < Cuenta.size(); i++) {
+            System.out.println(Cuenta.get(i));
         }
-
         Cuenta = null;
-
     }
-
 }
